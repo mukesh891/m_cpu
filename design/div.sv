@@ -17,6 +17,8 @@ module div(rs1_reg,rs2_reg,div_rd,rem);
       //$display("%t div_rd=%0d dividend=%0d, divisor=%0d",$time ,div_rd,dividend,divisor);
       
     end
+    $display("div_rd=%p",div_rd);
+    
     rem=dividend;
   end
 endmodule

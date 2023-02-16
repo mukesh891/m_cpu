@@ -3,7 +3,7 @@ parameter N=16;
 parameter SEL=4;
 input [SEL-1:0]rd_sel;
 input [N-1:0]rd_val;
-output reg[N-1:0]rd_reg[N-1:0];
+output reg [N-1:0]rd_reg[N-1:0];
 
 always@(*)begin
 	if(rd_sel==0)
@@ -38,5 +38,7 @@ always@(*)begin
 	rd_reg[14]=rd_val;
 	else if(rd_sel==15)
 	rd_reg[15]=rd_val;
+
+//$display("rd_reg=%p",rd_reg);
 end
 endmodule

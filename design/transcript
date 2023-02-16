@@ -1,0 +1,112 @@
+# vsim -c top -do "run -all; exit" 
+# Start time: 17:56:29 on Feb 06,2023
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# //  Questa Sim-64
+# //  Version 10.7d linux_x86_64 Feb 15 2019
+# //
+# //  Copyright 1991-2019 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.testbench_sv_unit(fast)
+# Loading work.top(fast)
+# Loading work.rs1_mux_16x1(fast)
+# Loading work.rs2_mux_16x1(fast)
+# Loading work.rd_demux(fast)
+# run -all
+# 0x0 	 rs1_val=48, rs2_val=43, or x10, x10, x3 	 x10 : 59,rem=x reg_file=x x x x x 59 x x x x x x x x x x
+# **************rs1 < rs2,exception************
+# 0x4 	 rs1_val=44, rs2_val=47, sub x6, x15, x10 	 x6 : x,reg_file=x x x x x 59 59 x x x x x x x 59 x
+# *0x7 	 *****exception case, addition result exceed data length ******* rs1_val=36, rs2_val=41, add x0, x8, x3 	 x0 : 13,reg_file=x x x x x 59 59 x x x x x x x 59 13
+# div_rd=1
+# 0x8 	 rs1_val=41, rs2_val=25, div x7, x8, x13 	 x7 : 1,rem=16 reg_file=x x x x x 59 59 x 1 x x x x x 59 13
+# div_rd=1
+# 0x9 	 rs1_val=50, rs2_val=40, div x2, x9, x13 	 x2 : 1,rem=10 reg_file=x x x x x 59 59 x 1 x x x x 1 59 13
+# div_rd=1
+# 0xa 	 rs1_val=25, rs2_val=41, div x15, x13, x1 	 x15 : 1,rem=25 reg_file=1 x x x x 59 59 x 1 x x x x 1 59 13
+# **************rs1 < rs2,exception************
+# 0xb 	 rs1_val=32, rs2_val=34, sub x5, x11, x1 	 x5 : x,reg_file=1 x x x x 59 59 x 1 x x x x 1 59 13
+# 0xc 	 ******exception case, multiplication results exceed data length ******* rs1_val=27, rs2_val=48, mul x7, x12, x8 	 x7 : x,reg_file=1 x x x x 59 59 x x x x x x 1 59 13
+# mul_rd=2300
+# 0xf 	 rs1_val=50, rs2_val=46, mul x0, x13, x14 	 x0 : 2300,reg_file=1 x x x x 59 59 x x x x x x 1 59 2300
+# **************rs1 < rs2,exception************
+# 0x10 	 rs1_val=25, rs2_val=34, sub x14, x5, x6 	 x14 : x,reg_file=1 x x x x 59 59 x x x x x x 1 59 2300
+# *0x12 	 *****exception case, addition result exceed data length ******* rs1_val=25, rs2_val=23, add x12, x1, x0 	 x12 : 14,reg_file=1 x x 14 x 59 59 x x x x x x 1 59 2300
+# mul_rd=3200
+# 0x15 	 rs1_val=20, rs2_val=45, mul x9, x13, x3 	 x9 : 3200,reg_file=14 x x 14 x 59 3200 x x x x x x 1 59 14
+# 0x17 	 rs1_val=30, rs2_val=37, and x2, x1, x3 	 x2 : 4,rem=25 reg_file=14 x x 14 x 59 3200 x x x x x x 4 59 3200
+# 0x18 	 rs1_val=23, rs2_val=45, and x3, x9, x15 	 x3 : 5,rem=25 reg_file=14 x x 14 x 59 3200 x x x x x 5 4 59 3200
+# *0x19 	 *****exception case, addition result exceed data length ******* rs1_val=20, rs2_val=28, add x4, x1, x12 	 x4 : 8,reg_file=14 x x 14 x 59 3200 x x x x 8 5 4 59 3200
+# sub_rd=17
+# 0x1a 	 rs1_val=48, rs2_val=31, sub x15, x10, x1 	 x15 : 17,reg_file=17 x x 14 x 59 3200 x x x x 8 5 4 59 3200
+# **************rs1 < rs2,exception************
+# 0x1b 	 rs1_val=38, rs2_val=50, sub x14, x11, x12 	 x14 : 17,reg_file=17 17 x 14 x 59 3200 x x x x 8 5 4 59 3200
+# 0x1d 	 li x12, 26 	 x12 : 26,reg_file=17 17 x 26 x 59 3200 x x x 17 8 5 4 59 3200
+# **************rs1 < rs2,exception************
+# 0x1e 	 rs1_val=21, rs2_val=49, sub x11, x4, x5 	 x11 : 17,reg_file=17 17 x 26 17 59 3200 x x x 17 8 5 4 59 3200
+# 0x1f 	 li x10, 49 	 x10 : 49,reg_file=17 17 x 26 17 49 3200 x x x 17 8 5 4 59 3200
+# 0x20 	 rs1_val=27, rs2_val=23, xor x15, x10, x13 	 x15 : 12,rem=25 reg_file=12 17 x 26 17 49 3200 x x x 17 8 5 4 59 3200
+# mul_rd=4310
+# 0x21 	 rs1_val=30, rs2_val=37, mul x7, x3, x10 	 x7 : 4310,reg_file=12 17 x 26 17 49 3200 x 4310 x 17 8 5 4 59 3200
+# sub_rd=21
+# 0x22 	 rs1_val=50, rs2_val=29, sub x15, x4, x3 	 x15 : 21,reg_file=21 17 x 26 17 49 3200 x 4310 x 17 8 5 4 59 3200
+# 0x25 	 rs1_val=45, rs2_val=20, or x12, x7, x0 	 x12 : 61,rem=25 reg_file=21 17 x 61 17 49 3200 x 4310 x 17 8 5 4 59 3200
+# 0x26 	 rs1_val=28, rs2_val=32, and x12, x7, x10 	 x12 : 0,rem=25 reg_file=21 17 x 0 17 49 3200 x 4310 x 17 8 5 4 59 3200
+# sub_rd=17
+# 0x28 	 rs1_val=44, rs2_val=27, sub x9, x11, x9 	 x9 : 17,reg_file=21 17 x 0 17 49 17 x 4310 x 17 8 0 4 59 3200
+# **************rs1 < rs2,exception************
+# 0x2a 	 rs1_val=20, rs2_val=32, sub x12, x1, x6 	 x12 : 17,reg_file=21 17 x 17 17 49 17 x 4310 x 17 8 0 17 59 3200
+# 0x2b 	 rs1_val=27, rs2_val=45, and x9, x1, x10 	 x9 : 9,rem=25 reg_file=21 17 x 17 17 49 9 x 4310 x 17 8 0 17 59 3200
+# 0x2e 	 rs1_val=22, rs2_val=27, xor x13, x11, x6 	 x13 : 13,rem=25 reg_file=21 17 13 17 17 49 9 x 4310 x 17 9 0 9 59 3200
+# *0x30 	 *****exception case, addition result exceed data length ******* rs1_val=35, rs2_val=44, add x7, x6, x13 	 x7 : 15,reg_file=21 17 13 17 17 49 9 x 15 x 17 9 0 9 59 3200
+# *0x33 	 *****exception case, addition result exceed data length ******* rs1_val=48, rs2_val=33, add x6, x15, x0 	 x6 : 17,reg_file=21 15 13 17 17 49 9 x 15 17 17 9 0 9 59 3200
+# div_rd=1
+# 0x34 	 rs1_val=25, rs2_val=30, div x7, x10, x13 	 x7 : 1,rem=25 reg_file=21 15 13 17 17 49 9 x 1 17 17 9 0 9 59 3200
+# div_rd=1
+# 0x36 	 rs1_val=34, rs2_val=49, div x5, x2, x2 	 x5 : 1,rem=34 reg_file=21 15 13 17 1 49 9 x 1 17 1 9 0 9 59 3200
+# 0x37 	 rs1_val=24, rs2_val=21, and x4, x10, x5 	 x4 : 16,rem=34 reg_file=21 15 13 17 1 49 9 x 1 17 1 16 0 9 59 3200
+# mul_rd=5318
+# 0x38 	 rs1_val=48, rs2_val=21, mul x4, x9, x7 	 x4 : 5318,reg_file=21 15 13 17 1 49 9 x 1 17 1 5318 0 9 59 3200
+# sub_rd=8
+# 0x39 	 rs1_val=31, rs2_val=23, sub x14, x5, x1 	 x14 : 8,reg_file=21 8 13 17 1 49 9 x 1 17 1 5318 0 9 59 3200
+# 0x3a 	 rs1_val=37, rs2_val=30, or x10, x7, x3 	 x10 : 63,rem=34 reg_file=21 8 13 17 1 63 9 x 1 17 1 5318 0 9 59 3200
+# 0x3e 	 rs1_val=45, rs2_val=44, xor x0, x5, x10 	 x0 : 1,rem=34 reg_file=21 8 13 17 1 63 9 63 1 17 1 5318 63 63 59 1
+# 0x3f 	 rs1_val=21, rs2_val=37, and x1, x0, x1 	 x1 : 5,rem=34 reg_file=21 8 13 17 1 63 9 63 1 17 1 5318 63 63 5 1
+# 0x44 	 rs1_val=31, rs2_val=34, xor x5, x12, x5 	 x5 : 61,rem=34 reg_file=21 8 13 5 5 63 9 63 5 17 61 5318 63 63 5 1
+# 0x48 	 li x9, 46 	 x9 : 46,reg_file=21 8 13 5 5 63 46 63 5 17 61 5318 63 61 5 1
+# mul_rd=6330
+# 0x49 	 rs1_val=46, rs2_val=22, mul x14, x10, x13 	 x14 : 6330,reg_file=21 6330 13 5 5 63 46 63 5 17 61 5318 63 61 5 1
+# *0x4a 	 *****exception case, addition result exceed data length ******* rs1_val=29, rs2_val=48, add x4, x12, x1 	 x4 : 45,reg_file=21 6330 13 5 5 63 46 63 5 17 61 45 63 61 5 1
+# 0x4c 	 rs1_val=26, rs2_val=29, xor x5, x3, x9 	 x5 : 7,rem=34 reg_file=21 6330 13 5 5 63 46 63 5 17 7 45 63 61 5 45
+# 0x4e 	 rs1_val=33, rs2_val=43, or x9, x3, x9 	 x9 : 43,rem=34 reg_file=7 6330 13 5 5 63 43 63 5 17 7 45 63 61 5 45
+# **************rs1 < rs2,exception************
+# 0x4f 	 rs1_val=45, rs2_val=49, sub x15, x5, x8 	 x15 : 8,reg_file=8 6330 13 5 5 63 43 63 5 17 7 45 63 61 5 45
+# 0x50 	 rs1_val=33, rs2_val=33, or x15, x14, x9 	 x15 : 33,rem=34 reg_file=33 6330 13 5 5 63 43 63 5 17 7 45 63 61 5 45
+# 0x52 	 rs1_val=39, rs2_val=26, and x4, x3, x1 	 x4 : 2,rem=34 reg_file=33 6330 13 5 33 63 43 63 5 17 7 2 63 61 5 45
+# *0x53 	 *****exception case, addition result exceed data length ******* rs1_val=34, rs2_val=45, add x10, x8, x4 	 x10 : 15,reg_file=33 6330 13 5 33 15 43 63 5 17 7 2 63 61 5 45
+# 0x55 	 rs1_val=32, rs2_val=49, and x3, x6, x1 	 x3 : 32,rem=34 reg_file=33 6330 13 5 33 15 43 63 5 17 7 15 32 61 5 45
+# **************rs1 < rs2,exception************
+# 0x57 	 rs1_val=21, rs2_val=35, sub x9, x14, x7 	 x9 : 8,reg_file=33 6330 13 32 33 15 8 63 5 17 7 15 32 61 5 45
+# mul_rd=7695
+# 0x58 	 rs1_val=39, rs2_val=35, mul x9, x6, x15 	 x9 : 7695,reg_file=33 6330 13 32 33 15 7695 63 5 17 7 15 32 61 5 45
+# sub_rd=19
+# 0x5b 	 rs1_val=40, rs2_val=21, sub x8, x3, x6 	 x8 : 19,reg_file=33 6330 13 32 33 7695 7695 19 5 17 7695 15 32 61 5 45
+# *0x5c 	 *****exception case, addition result exceed data length ******* rs1_val=29, rs2_val=42, add x5, x12, x11 	 x5 : 55,reg_file=33 6330 13 32 33 7695 7695 19 5 17 55 15 32 61 5 45
+# mul_rd=8289
+# 0x5f 	 rs1_val=27, rs2_val=22, mul x7, x2, x12 	 x7 : 8289,reg_file=33 6330 13 32 33 7695 7695 19 8289 17 55 15 32 55 5 45
+# 0x60 	 li x0, 41 	 x0 : 41,reg_file=33 6330 13 32 33 7695 7695 19 8289 17 55 15 32 55 5 41
+# sub_rd=6
+# 0x61 	 rs1_val=38, rs2_val=32, sub x3, x9, x11 	 x3 : 6,reg_file=33 6330 13 32 33 7695 7695 19 8289 17 55 15 6 55 5 41
+# 0x63 	 rs1_val=40, rs2_val=20, add x2, x8, x6 	 x2 : 60,reg_file=33 6330 13 32 33 7695 7695 19 8289 17 55 6 6 60 5 41
+# ** Note: $finish    : testbench.sv(217)
+#    Time: 2 us  Iteration: 0  Instance: /top
+# End time: 17:56:30 on Feb 06,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
