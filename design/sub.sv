@@ -1,5 +1,6 @@
 module sub(rs1_reg,rs2_reg,bin,sub_rd,bo);
   parameter N=16;
+<<<<<<< HEAD
   input [N-1:0]rs1_reg,rs2_reg;
   input bin;
   output reg [N-1:0]sub_rd;
@@ -14,6 +15,21 @@ module sub(rs1_reg,rs2_reg,bin,sub_rd,bo);
     end
     assign bo=b[N];
   endgenerate
+=======
+           input [N-1:0] rs1_reg, rs2_reg;
+
+           output reg [N-1:0] sub_rd;
+  
+  always @(*) begin
+	  if(rs1_reg >= rs2_reg)begin
+		sub_rd = rs1_reg - rs2_reg;
+end
+	else
+		$display("**************rs1 < rs2,exception************");
+  //s = a+b+ci;
+  //co = a+b+ci;  
+  end
+>>>>>>> 5e0e01d92687c490c43715a5d0de710529c0ff75
 endmodule
 //full subtractor
 
