@@ -40,7 +40,6 @@ genvar i;
 
 xnor x0(eq,rs1_reg,rs2_reg);
 and a1(gt,rs1_reg,~rs2_reg);
-always@(*) $display(gt);
 and a2(lt,~rs1_reg,rs2_reg);
 
 
@@ -66,7 +65,6 @@ and g2(gt2,n6,n3,n4);
 and g3(gt3,n7,n4);
 
 or great1(gt,gt1,gt2,gt3,n8);
-always@(*) $display("%d,cmp_4",gt);
 
 //for lesser than
 and l1(lt1,n9,n2,n3,n4);
@@ -95,7 +93,6 @@ and g5(gt5,n19,n16,n17);
 and g6(gt6,n20,n17);
 
 or gtr(gt,gt4,gt5,gt6,n21);
-always@(*) $display("%d, cmp_16",gt);
 //for lesser than
 and l4(lt4,n22,n17,n15,n16);
 and l5(lt5,n23,n17,n16);

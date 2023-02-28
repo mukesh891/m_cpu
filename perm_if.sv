@@ -1,4 +1,4 @@
-interface perm_if.sv
+interface perm_if
 #(
   parameter ADDR_WIDTH=16
 )();

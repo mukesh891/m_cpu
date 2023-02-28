@@ -6,14 +6,14 @@ module memtop
   /*Total Size = ADDR_WIDTH*DATA_WIDTH */
 )
 (
-  cr_if     crIf,
-  read_if#(ADDR_WIDTH, DATA_WIDTH)    r0If,
-  read_if#(ADDR_WIDTH, DATA_WIDTH)    r1If,
-  write_if#(ADDR_WIDTH, DATA_WIDTH)   wIf,
-  perm_if#(ADDR_WIDTH)    pIf
+	perm_if#(ADDR_WIDTH) pIf(),
+	cr_if crIf,
+	write_if#(ADDR_WIDTH,DATA_WIDTH) wIf(),
+	read_if#(ADDR_WIDTH,DATA_WIDTH) r0If(),
+	read_if#(ADDR_WIDTH,DATA_WIDTH) r1If()
 );
 
-
+reg clk,rstn;
 reg [DATA_WIDTH-1:0] mem[2^ADDR_WIDTH];
 
 initial begin

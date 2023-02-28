@@ -67,7 +67,7 @@ module top;
   wire[N-1:0] add_rd_out,co,sub_rd_out,mul_rd_out,m_co,div_rd_out,rem,and_rd_out,or_rd_out,xor_rd_out,li_rd_out;
 
   reg [15:0]imm_val;
-  
+  reg bin;
  pc pc_dut(.clk(clk),.rst(rst),.pc(pc)); 
 
 //rs1 reg selection line  
@@ -85,13 +85,13 @@ module top;
   add add_dut(.rs1_reg(add_rs1), .rs2_reg(add_rs2), .add_rd(add_rd_out),.co(co));
 
   //subtracter module port to port connection
-  sub sub_dut(.rs1_reg(sub_rs1), .rs2_reg(sub_rs2), .sub_rd(sub_rd_out));
+  sub sub_dut(.rs1_reg(sub_rs1), .rs2_reg(sub_rs2), .sub_rd(sub_rd_out),.bin(bin),.bo(bo));
 
   //multiplier module port to port connection
   mul mul_dut(.rs1_reg(mul_rs1), .rs2_reg(mul_rs2), .mul_rd(mul_rd_out),.m_co(m_co));
 
   //divider module port to port connection
-  div div_dut(.rs1_reg(div_rs1), .rs2_reg(div_rs2), .div_rd(div_rd_out), .rem(rem));
+  div div_dut(.clk(clk),.rst(rst),.rs1_reg(div_rs1), .rs2_reg(div_rs2), .div_rd(div_rd_out), .rem(rem),.bin(bin));
 
   and_d and_dut(.rs1_reg(and_rs1), .rs2_reg(and_rs2),.and_rd(and_rd_out));
 
@@ -123,71 +123,73 @@ rd_demux rd_demux_dut(.rd_sel(rd_sel),.rd_val(rd_val),.rd_reg(reg_file));
 	rs2_val=$urandom_range(20,50);
 	rs1_val=$urandom_range(20,50);
 	imm_val=rs1_val;
-      #5;
+	bin=0;
+      
 	/*case(opcode[13:12])
         0: begin
           reg_file[rd_sel]=rd_val;
 	  if(co==0)
-          $display("0x%0h \t add %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val);
+          $monitor("0x%0h \t add %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val);
  	  else begin
-	  $display("************exception case, addition result exceed data length **************"); 
-          $display("0x%0h \t add %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val);
-	  $display("*****************************************************************************"); 
+	  $monitor("************exception case, addition result exceed data length **************"); 
+          $monitor("0x%0h \t add %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val);
+	  $monitor("*****************************************************************************"); 
 		end
 	end
         1: begin
           reg_file[rd_sel]=rd_val;
-          $display("0x%0h \t sub %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val);
+          $monitor("0x%0h \t sub %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val);
         end
         2: begin
           reg_file[rd_sel]=rd_val;
 	  if(co==0)
-          $display("0x%0h \t mul %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val);
+          $monitor("0x%0h \t mul %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val);
         
   	  else begin
-	  $display("************exception case, addition result exceed data length **************"); 
-          $display("0x%0h \t mul %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val);
-	  $display("*****************************************************************************"); 
+	  $monitor("************exception case, addition result exceed data length **************"); 
+          $monitor("0x%0h \t mul %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val);
+	  $monitor("*****************************************************************************"); 
   	end
 	end
         3: begin
           reg_file[rd_sel]=rd_val;
-          $display("0x%0h \t div %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h \t rem=%0d",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val,rem);
+          $monitor("0x%0h \t div %0s, %0s, %0s \t %0s : 0x%0h \t rs1_val=0x%0h, rs2_val=0x%0h \t rem=%0d",pc,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rs1_val,rs2_val,rem);
         end
       endcase
-//$display("opcode for operation is %0b",opcode[13:12]);
+//$monitor("opcode for operation is %0b",opcode[13:12]);
       */
+     #80;
      case(opcode[15:12])
         0: begin
 	  if(co==0)
-          $display("0x%0h \t rs1_val=%0d, rs2_val=%0d, add %0s, %0s, %0s \t %0s : %0d,reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
+          $monitor("0x%0h \t rs1_val=%0d, rs2_val=%0d, add %0s, %0s, %0s \t %0s : %0d,reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
         	else
-          $display("*0x%0h \t *****exception case, addition result exceed data length ******* rs1_val=%0d, rs2_val=%0d, add %0s, %0s, %0s \t %0s : %0d,reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
+          $monitor("*0x%0h \t *****exception case, addition result exceed data length ******* rs1_val=%0d, rs2_val=%0d, add %0s, %0s, %0s \t %0s : %0d,reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
 	end
         1: begin
-          $display("0x%0h \t rs1_val=%0d, rs2_val=%0d, sub %0s, %0s, %0s \t %0s : %0d,reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
+          $monitor("0x%0h \t rs1_val=%0d, rs2_val=%0d, sub %0s, %0s, %0s \t %0s : %0d,reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
         end
         2: begin
 	  if(m_co==0)
-          $display("0x%0h \t rs1_val=%0d, rs2_val=%0d, mul %0s, %0s, %0s \t %0s : %0d,reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
+          $monitor("0x%0h \t rs1_val=%0d, rs2_val=%0d, mul %0s, %0s, %0s \t %0s : %0d,reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
         
 	else
-          $display("0x%0h \t ******exception case, multiplication results exceed data length ******* rs1_val=%0d, rs2_val=%0d, mul %0s, %0s, %0s \t %0s : %0d,reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
+          $monitor("0x%0h \t ******exception case, multiplication results exceed data length ******* rs1_val=%0d, rs2_val=%0d, mul %0s, %0s, %0s \t %0s : %0d,reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
   	end
         3: begin
-          $display("0x%0h \t rs1_val=%0d, rs2_val=%0d, div %0s, %0s, %0s \t %0s : %0d,rem=%0d reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rem,reg_file);
+          $monitor("0x%0h \t rs1_val=%0d, rs2_val=%0d, div %0s, %0s, %0s \t %0s : %0d,rem=%0d reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rem,reg_file);
         end
         4: begin
-          $display("0x%0h \t rs1_val=%0d, rs2_val=%0d, and %0s, %0s, %0s \t %0s : %0d,rem=%0d reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rem,reg_file);
+          $monitor("0x%0h \t rs1_val=%0d, rs2_val=%0d, and %0s, %0s, %0s \t %0s : %0d, reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
         end
         5: begin
-          $display("0x%0h \t rs1_val=%0d, rs2_val=%0d, or %0s, %0s, %0s \t %0s : %0d,rem=%0d reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rem,reg_file);
+          $monitor("0x%0h \t rs1_val=%0d, rs2_val=%0d, or %0s, %0s, %0s \t %0s : %0d, reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
         end
         6: begin
-          $display("0x%0h \t rs1_val=%0d, rs2_val=%0d, xor %0s, %0s, %0s \t %0s : %0d,rem=%0d reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,rem,reg_file);
+          $monitor("0x%0h \t rs1_val=%0d, rs2_val=%0d, xor %0s, %0s, %0s \t %0s : %0d, reg_file=%0p",pc,rs1_val,rs2_val,rd_regname.name(), rs2_regname.name(), rs1_regname.name(), rd_regname.name(),rd_val,reg_file);
         end
         7: begin
-          $display("0x%0h \t li %0s, %0d \t %0s : %0d,reg_file=%0p",pc,rd_regname.name(),imm_val , rd_regname.name(),rd_val,reg_file);
+          $monitor("0x%0h \t li %0s, %0d \t %0s : %0d,reg_file=%0p",pc,rd_regname.name(),imm_val , rd_regname.name(),rd_val,reg_file);
         end
       endcase
       //*/
